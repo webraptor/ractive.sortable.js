@@ -68,15 +68,17 @@ Ractive.events.sortable = function(node, fire) {
         }                
       }
     },
-    _tearDown: function() {
-      
-      props._forEach(node.children, function(child){  
-        child.draggable = false;
-        props._forEach(props.events, function(element, key) {
-          child.removeEventListener(element, props._dragEvent(element));
-        }, 0);
-      },0);
+    _tearDown: {
+      teardown: function() {
 
+        props._forEach(node.children, function(child){  
+          child.draggable = false;
+          props._forEach(props.events, function(element, key) {
+            child.removeEventListener(element, props._dragEvent(element));
+          }, 0);
+        },0);
+
+      }
     },
     events: ["drag", "dragend", "dragenter", "dragexit", "dragleave", "dragover", "dragstart","drop"],
     stopDropPropagation: node.hasAttribute("data-dropStopPropagation")
